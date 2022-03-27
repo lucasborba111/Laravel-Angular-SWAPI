@@ -1,0 +1,13 @@
+<input  #myInput (keydown.enter)="movie_filter(myInput.value)" placeholder="Pesquisar">
+<div style="display: flex; flex-direction: row;flex-wrap: wrap;justify-content: space-between;">
+    <div class="card border-dark mb-3"  *ngFor="let film of movie">
+        <div class="card-header">{{film.title}}</div>
+        <div class="card-body text-dark">
+          <p class="card-text"><ul><li>Episode id: {{film.episode_id}}</li></ul>
+          <ul><li>Film opening: {{film.opening_crawl}}</li></ul>
+          <ul><li>Release date: {{film.release_date}}</li></ul>
+          <ul><li>Film characters: {{film.characters}}</li></ul><p>
+        </div>
+    </div>
+</div>
+
