@@ -4,6 +4,7 @@ export interface Movie{
     opening_crawl:string;
     release_date:string;
     characters:string;
+    planets:string;
     created_at: string;
     updated_at:string;
 }

@@ -24,5 +24,10 @@ export class BackendService {
     return this.http.get<World[]>(this.API_WORLD).pipe(tap(console.log));
   }
 
-
+  movie_show(id:string){
+    return this.http.get<Movie[]>(this.API_MOVIE+'/'+id).pipe(tap(console.log));
+  }
+  world_show(id:string){
+    return this.http.get<World[]>(this.API_WORLD+'/'+id).pipe(tap(console.log));
+  }
 }

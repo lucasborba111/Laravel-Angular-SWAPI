@@ -1,12 +1,12 @@
 <input  #myInput (keydown.enter)="people_filter(myInput.value)" placeholder="Pesquisar">
 
 <div style="display: flex; flex-direction: row;flex-wrap: wrap;justify-content: space-around;">
-  <div class="card border-dark mb-3"  *ngFor="let people of people">
+  <div class="card text-white bg-dark mb-3" style="max-width: 430px;"  *ngFor="let people of people">
       <div class="card-header">{{people.name}}</div>
-      <div class="card-body text-dark">
+      <div class="card-body text-white">
         <p class="card-text"><ul><li>Birth Year: {{people.birth_year}}</li></ul>
         <ul><li>Gender: {{people.gender}}</li></ul>
-        <ul><li>Films: {{people.films}}</li></ul><p>
+        <ul><li><div style="display: flex; flex-direction: row;">Films: <div *ngFor="let link of (people.films)"><button #valor [value]="link" (click)="show_films(valor.value)">{{link}}</button></div></div></li></ul><p>
       </div>
   </div>
 </div>

@@ -7,11 +7,16 @@ import { World } from './../world';
   styleUrls: ['./planet.component.css']
 })
 export class PlanetComponent implements OnInit {
-  world: World[]
+  world: World[]=[]
   constructor(private service: BackendService) { }
 
   ngOnInit(): void {
-    this.service.world_list().subscribe(dados =>this.world = dados);
+    this.service.world_list().subscribe(dados =>{
+      this.world=dados;
+      for(let i=0; i<this.world?.length;i++){
+        this.world[i].films = dados[i].films.match(/\d+/g);
+      }  
+    });
   }
   world_filter(nome:string){
     var filtrado =  this.world.filter(function(planet) {
@@ -20,5 +25,10 @@ export class PlanetComponent implements OnInit {
      if(filtrado){
        this.world = filtrado
      }
+   }
+   show_films(id:string){
+    this.service.movie_show(id).subscribe(dados =>{
+      alert('TITLE: '+dados.title+'\n'+'EPISODE ID: '+dados.episode_id+"\n"+'OPENING CRAWl: '+dados.opening_crawl);
+    });
    }
 }

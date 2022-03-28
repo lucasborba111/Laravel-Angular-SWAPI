@@ -51,7 +51,7 @@ class WorldController extends Controller
                         'films'=>implode(',',$value['films']), 
                         'climate'=>$value['climate'],
                         'population'=>$value['population'],
-                        'residents'=>implode(',',$value['residents']),
+                        'residents'=>implode(', ',$value['residents']),
                         ]);
                     }
             return WorldController::index();
@@ -65,12 +65,12 @@ class WorldController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\World  $world
+     * @param  integer
      * @return \Illuminate\Http\Response
      */
-    public function show(World $world)
+    public function show($id)
     {
-        //
+        return $this->world->find($id);
     }
 
     /**

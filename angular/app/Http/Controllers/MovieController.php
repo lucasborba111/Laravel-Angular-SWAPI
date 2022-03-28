@@ -48,7 +48,8 @@ class MovieController extends Controller
                         'episode_id'=>$value['episode_id'],
                         'opening_crawl'=>$value['opening_crawl'], 
                         'release_date'=>$value['release_date'] ,
-                        'characters'=>implode(',',$value['characters']), 
+                        'characters'=>implode(', ',$value['characters']), 
+                        'planets'=>implode(',',$value['planets'])
                         ]);
                     }
             return MovieController::index();
@@ -61,12 +62,12 @@ class MovieController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Movie  $movie
+     * @param  integer $id;
      * @return \Illuminate\Http\Response
      */
-    public function show(Movie $movie)
+    public function show($id)
     {
-        //
+        return $this->movie->find($id);
     }
 
     /**

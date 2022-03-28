@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Movie extends Model
 {
     use HasFactory;
-    protected $fillable =['title','episode_id','opening_crawl','release_date','characters'];
+    protected $fillable =['title','episode_id','opening_crawl','release_date','characters','planets'];
     protected $table = 'movies';
 }

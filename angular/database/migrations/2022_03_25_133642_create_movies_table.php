@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('opening_crawl');
             $table->string('release_date');
             $table->text('characters');
+            $table->text('planets');
             $table->timestamps();
         });
     }

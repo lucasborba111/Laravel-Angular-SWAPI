@@ -45,7 +45,7 @@ class PeopleController extends Controller
         if($total->pluck('items')->toArray()==null){
             $response = Http::get('https://swapi.dev/api/people/')->json('results');
             foreach($response as $item => $value){
-            People::create(['name'=>$value['name'],'birth_year'=>$value['birth_year'],'gender'=>$value['gender'],'films'=>implode(', ',$value['films'])]);
+            People::create(['name'=>$value['name'],'birth_year'=>$value['birth_year'],'gender'=>$value['gender'],'films'=>implode('',$value['films'])]);
         }    
             return PeopleController::index();
     }
