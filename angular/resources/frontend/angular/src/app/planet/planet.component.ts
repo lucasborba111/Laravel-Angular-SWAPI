@@ -15,8 +15,7 @@ export class PlanetComponent implements OnInit {
       this.world=dados;
       for(let i=0; i<this.world?.length;i++){
         this.world[i].films_id=this.world[i].films_id.split("")
-        this.world[i].films=this.world[i].films.split(",")
-
+        this.world[i].films=this.world[i].films.split(".")
       }  
     });
   }

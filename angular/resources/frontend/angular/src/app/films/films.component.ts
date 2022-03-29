@@ -18,7 +18,12 @@ export class FilmsComponent implements OnInit {
     this.service.movie_list().subscribe(dados=>{
       this.movie=dados;
       for(let i=0; i<this.movie?.length;i++){
-        this.movie[i].planets = dados[i].planets.match(/\d+/g);
+        this.movie[i].planets_id=this.movie[i].planets_id.split("")
+        this.movie[i].planets=this.movie[i].planets.split(".")
+      }  
+      for(let i=0; i<this.movie?.length;i++){
+        this.movie[i].people_id=this.movie[i].people_id.split("")
+        this.movie[i].people=this.movie[i].people.split(".")
       }  
       console.log(this.movie)
     });

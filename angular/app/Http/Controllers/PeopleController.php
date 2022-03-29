@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\People;
+use App\Models\Movie;
 class PeopleController extends Controller
 {
     public function __construct(People $people)
@@ -45,8 +46,25 @@ class PeopleController extends Controller
         if($total->pluck('items')->toArray()==null){
             $response = Http::get('https://swapi.dev/api/people/')->json('results');
             foreach($response as $item => $value){
-            People::create(['name'=>$value['name'],'birth_year'=>$value['birth_year'],'gender'=>$value['gender'],'films'=>implode('',$value['films'])]);
-        }    
+                $filmes='';
+                preg_match_all('!\d+!', implode($value['films']), $matches);
+
+                $ids = implode($matches[0]);
+                $url = "https://swapi.dev/api/films/";
+                foreach($matches as $valor=>$index){
+                    for($i=0;$i<count($index);$i++){
+                        $response2=Http::get($url.$matches[$valor][$i].'/')->json('title');
+                        $filmes .= $response2.'.';
+                    }                   
+                }
+            People::create([
+                            'name'=>$value['name'],
+                            'birth_year'=>$value['birth_year'],
+                            'gender'=>$value['gender'],
+                            'films'=>$filmes,
+                            'films_id'=>$ids
+                        ]);
+    }
             return PeopleController::index();
     }
         else{

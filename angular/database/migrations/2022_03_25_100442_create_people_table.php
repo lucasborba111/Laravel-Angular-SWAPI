@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('birth_year');
             $table->string('gender');
             $table->string('films');
+            $table->string('films_id');
             $table->timestamps();
         });
     }

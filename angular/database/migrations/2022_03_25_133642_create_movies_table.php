@@ -21,6 +21,10 @@ return new class extends Migration
             $table->string('release_date');
             $table->text('characters');
             $table->text('planets');
+            $table->text('planets_id');
+            $table->text('people');
+            $table->text('people_id');
+
             $table->timestamps();
         });
     }

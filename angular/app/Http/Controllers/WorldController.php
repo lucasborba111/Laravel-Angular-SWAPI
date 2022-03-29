@@ -42,15 +42,18 @@ class WorldController extends Controller
     {
         $total = $this->world->all();
         if($total->pluck('items')->toArray()==null){
-            
             $response = Http::get('https://swapi.dev/api/planets/')->json('results');
             foreach($response as $item => $value){
                 $filmes='';
                 preg_match_all('!\d+!', implode($value['films']), $matches);
-                foreach($matches as $index =>$valor){
-                    $filme = Movie::find($valor)->pluck('title')->toArray();
-                    $filmes .= implode(', ',$filme);
-                    $ids = implode($matches[$index]);
+                $ids = implode($matches[0]);
+                $url = "https://swapi.dev/api/films/";
+                foreach($matches as $valor=>$index){
+                    for($i=0;$i<count($index);$i++){
+                        $response2=Http::get($url.$matches[$valor][$i].'/')->json('title');
+                        $filmes .= $response2.'.';
+
+                    }                   
                 }
             World::create(['name'=>$value['name'],
                         'rotation_period'=>$value['rotation_period'],

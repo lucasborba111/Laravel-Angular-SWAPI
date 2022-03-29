@@ -6,7 +6,7 @@
       <div class="card-body text-white">
         <p class="card-text"><ul><li>Birth Year: {{people.birth_year}}</li></ul>
         <ul><li>Gender: {{people.gender}}</li></ul>
-        <ul><li><div style="display: flex; flex-direction: row;">Films: <div *ngFor="let link of (people.films)"><button #valor [value]="link" (click)="show_films(valor.value)">{{link}}</button></div></div></li></ul><p>
-      </div>
+        <ul>Films:<div style="display: flex; flex-direction: row;color:rgb(0, 116, 211); " *ngFor="let id of people.films_id; index as i" #valor value="id" (click)="show_films(id)"><p>{{people.films[i]}}</p> </div></ul><p>
+        </div>
   </div>
 </div>

@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-
+use App\Models\World;
+use App\Http\Controllers\WorldController;
 class MovieController extends Controller
 {
     public function __construct(Movie $movie)
@@ -44,13 +45,36 @@ class MovieController extends Controller
         if($total->pluck('items')->toArray()==null){
             $response = Http::get('https://swapi.dev/api/films/')->json('results');
             foreach($response as $item => $value){
-            Movie::create(['title'=>$value['title'],
-                        'episode_id'=>$value['episode_id'],
-                        'opening_crawl'=>$value['opening_crawl'], 
-                        'release_date'=>$value['release_date'] ,
-                        'characters'=>implode(', ',$value['characters']), 
-                        'planets'=>implode(',',$value['planets'])
-                        ]);
+                $worlds='';
+                preg_match_all('!\d+!', implode($value['planets']), $matches);
+                $ids = implode($matches[0]);
+                $url = "https://swapi.dev/api/planets/";
+                $people='';
+
+                preg_match_all('!\d+!', implode($value['characters']), $people_match);
+                $people_ids = implode($people_match[0]);
+                $people_url = "https://swapi.dev/api/people/";
+
+                foreach($matches as $valor=>$index){
+                    for($i=0;$i<count($index);$i++){
+                        $response2=Http::get($url.$matches[$valor][$i].'/')->json('name');
+                        $worlds .= $response2.'.';
+                    }          
+                    for($i=0;$i<count($index);$i++){
+                        $response2=Http::get($people_url.$matches[$valor][$i].'/')->json('name');
+                        $people .= $response2.'.';
+                    }            
+                }
+
+                Movie::create(['title'=>$value['title'],
+                            'episode_id'=>$value['episode_id'],
+                            'opening_crawl'=>$value['opening_crawl'], 
+                            'release_date'=>$value['release_date'] ,
+                            'planets'=>$worlds,
+                            'planets_id'=>$ids,
+                            'people'=>$people,
+                            'people_id'=>$people_ids
+                            ]);
                     }
             return MovieController::index();
         }

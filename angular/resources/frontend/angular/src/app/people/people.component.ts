@@ -17,8 +17,9 @@ export class PeopleComponent implements OnInit {
     this.service.people_list().subscribe(dados =>{
       this.people=dados;
       for(let i=0; i<this.people?.length;i++){
-        this.people[i].films = dados[i].films.match(/\d+/g);
-      }  
+        this.people[i].films_id=this.people[i].films_id.split("")
+        this.people[i].films=this.people[i].films.split(".")
+      }   
     });
    
   }
