@@ -6,8 +6,7 @@
           <p class="card-text"><ul><li>Episode id: {{film.episode_id}}</li></ul>
           <ul><li>Film opening: {{film.opening_crawl}}</li></ul>
           <ul><li>Release date: {{film.release_date}}</li></ul>
-          <ul><li>Characters: {{film.people}}</li></ul><p>
-          <div style="display: flex; flex-direction: row;color:rgb(0, 116, 211); " *ngFor="let id of film.people_id; index as i" #valor value="id" (click)="show_world(id)">{{film.people[i]}}</div>
+          <ul>Characters:<div style="display: flex; flex-direction: row;color:rgb(0, 116, 211); " *ngFor="let id of film.people_id; index as i" #valor value="id" (click)="show_people(id)">{{film.people[i]}}</div></ul>
           <ul>PLanets:<div style="display: flex; flex-direction: row;color:rgb(0, 116, 211); " *ngFor="let id of film.planets_id; index as i" #valor value="id" (click)="show_world(id)"><p>{{film.planets[i]}}</p> </div></ul><p>
         </div>
     </div>

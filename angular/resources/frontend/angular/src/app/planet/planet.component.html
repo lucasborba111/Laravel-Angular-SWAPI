@@ -9,7 +9,7 @@
         <ul><li>Diameter: {{world.diameter}}</li></ul>
           <ul><li>climate: {{world.climate}}</li></ul><p>
         <ul><li>Population: {{world.population}}</li></ul><p>
-        <ul><li>Residents: {{world.residents}}</li></ul><p>
+          <ul>Residents:<div style="display: flex; flex-direction: row;color:rgb(0, 116, 211); " *ngFor="let id of world.people_id; index as i" #valor value="id" (click)="show_people(id)">{{world.people[i]}}</div></ul>
         <ul>Films:<div style="display: flex; flex-direction: row;color:rgb(0, 116, 211); " *ngFor="let id of world.films_id; index as i" #valor value="id" (click)="show_films(id)"><p>{{world.films[i]}}</p> </div></ul><p>
 
       </div>

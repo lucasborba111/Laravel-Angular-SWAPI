@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('episode_id');
             $table->text('opening_crawl');
             $table->string('release_date');
-            $table->text('characters');
             $table->text('planets');
             $table->text('planets_id');
             $table->text('people');

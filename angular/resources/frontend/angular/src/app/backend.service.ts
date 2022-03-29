@@ -31,4 +31,7 @@ export class BackendService {
   world_show(id:string){
     return this.http.get<World[]>(this.API_WORLD+'/'+id).pipe(tap(console.log));
   }
+  people_show(id:string){
+    return this.http.get<People[]>(this.API_PEOPLE+'/'+id).pipe(tap(console.log));
+  }
 }

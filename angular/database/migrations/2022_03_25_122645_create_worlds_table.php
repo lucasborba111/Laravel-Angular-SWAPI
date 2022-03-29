@@ -21,9 +21,11 @@ return new class extends Migration
             $table->string('diameter');
             $table->string('climate');
             $table->string('population');
-            $table->text('residents');
             $table->text('films');
             $table->text('films_id');
+            $table->text('people');
+            $table->text('people_id');
+
             $table->timestamps();
         });
     }

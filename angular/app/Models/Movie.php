@@ -12,7 +12,6 @@ class Movie extends Model
                             'episode_id',
                             'opening_crawl',
                             'release_date',
-                            'characters',
                             'planets',
                             'planets_id',
                             'people',

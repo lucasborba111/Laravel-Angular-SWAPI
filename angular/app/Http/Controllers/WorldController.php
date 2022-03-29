@@ -42,18 +42,28 @@ class WorldController extends Controller
     {
         $total = $this->world->all();
         if($total->pluck('items')->toArray()==null){
-            $response = Http::get('https://swapi.dev/api/planets/')->json('results');
+            $response = Http::get('https://swapi.dev/api/planets?page=1')->json('results');
             foreach($response as $item => $value){
                 $filmes='';
                 preg_match_all('!\d+!', implode($value['films']), $matches);
                 $ids = implode($matches[0]);
                 $url = "https://swapi.dev/api/films/";
+
+                $people='';
+                preg_match_all('!\d+!', implode($value['residents']), $people_match);
+                $people_ids = implode(',',$people_match[0]);
+                $people_url = "https://swapi.dev/api/people/";
+
                 foreach($matches as $valor=>$index){
                     for($i=0;$i<count($index);$i++){
                         $response2=Http::get($url.$matches[$valor][$i].'/')->json('title');
                         $filmes .= $response2.'.';
 
-                    }                   
+                    }         
+                    for($i=0;$i<count($index);$i++){
+                        $response2=Http::get($people_url.$matches[0][$i].'/')->json('name');
+                        $people .= $response2.',';
+                    }               
                 }
             World::create(['name'=>$value['name'],
                         'rotation_period'=>$value['rotation_period'],
@@ -63,7 +73,8 @@ class WorldController extends Controller
                         'films_id'=>$ids,
                         'climate'=>$value['climate'],
                         'population'=>$value['population'],
-                        'residents'=>implode(', ',$value['residents']),
+                        'people'=>$people,
+                        'people_id'=>$people_ids
                         ]);
                     }
             return WorldController::index();

@@ -43,27 +43,28 @@ class MovieController extends Controller
     {
         $total = $this->movie->all();
         if($total->pluck('items')->toArray()==null){
-            $response = Http::get('https://swapi.dev/api/films/')->json('results');
+            $response = Http::get('https://swapi.dev/api/films?page=1')->json('results');
             foreach($response as $item => $value){
                 $worlds='';
                 preg_match_all('!\d+!', implode($value['planets']), $matches);
                 $ids = implode($matches[0]);
                 $url = "https://swapi.dev/api/planets/";
-                $people='';
 
+                $people='';
                 preg_match_all('!\d+!', implode($value['characters']), $people_match);
-                $people_ids = implode($people_match[0]);
+                $people_ids = implode(',',$people_match[0]);
                 $people_url = "https://swapi.dev/api/people/";
 
                 foreach($matches as $valor=>$index){
                     for($i=0;$i<count($index);$i++){
                         $response2=Http::get($url.$matches[$valor][$i].'/')->json('name');
-                        $worlds .= $response2.'.';
-                    }          
+                        $worlds .= $response2.',';
+                    }   
+                    
                     for($i=0;$i<count($index);$i++){
-                        $response2=Http::get($people_url.$matches[$valor][$i].'/')->json('name');
-                        $people .= $response2.'.';
-                    }            
+                        $response2=Http::get($people_url.$matches[0][$i].'/')->json('name');
+                        $people .= $response2.',';
+                    }      
                 }
 
                 Movie::create(['title'=>$value['title'],

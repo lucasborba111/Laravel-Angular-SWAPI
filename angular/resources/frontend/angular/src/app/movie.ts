@@ -8,6 +8,5 @@ export interface Movie{
     planets_id:any,
     people_id:any,
     people:any,
-    created_at: string;
-    updated_at:string;
+    
 }

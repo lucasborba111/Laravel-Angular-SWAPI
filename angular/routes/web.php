@@ -23,3 +23,4 @@ Route::any('movie', [MovieController::class, 'store'])->where('any', '^(?!api).*
 
 Route::any('world/{id}', [WorldController::class, 'show'])->where('any', '^(?!api).*$')->name('world.show');
 Route::any('movie/{id}', [MovieController::class, 'show'])->where('any', '^(?!api).*$')->name('movie.show');
+Route::any('people/{id}', [PeopleController::class, 'show'])->where('any', '^(?!api).*$')->name('people.show');

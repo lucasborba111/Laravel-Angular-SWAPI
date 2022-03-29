@@ -44,7 +44,7 @@ class PeopleController extends Controller
         $total = $this->people->all();
 
         if($total->pluck('items')->toArray()==null){
-            $response = Http::get('https://swapi.dev/api/people/')->json('results');
+            $response = Http::get('https://swapi.dev/api/people?page=1')->json('results');
             foreach($response as $item => $value){
                 $filmes='';
                 preg_match_all('!\d+!', implode($value['films']), $matches);
@@ -81,7 +81,7 @@ class PeopleController extends Controller
      */
     public function show($id)
     {
-        
+        return $this->people->find($id);
     }
 
     /**

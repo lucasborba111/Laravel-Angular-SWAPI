@@ -5,7 +5,8 @@ export interface World{
     diameter:string,
     films:any,
     films_id:any,
+    people:any,
+    people_id:any,
     climate:string,
     population:string,
-    residents:string,
 }

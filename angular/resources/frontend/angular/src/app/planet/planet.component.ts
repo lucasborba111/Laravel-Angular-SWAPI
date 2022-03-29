@@ -16,6 +16,10 @@ export class PlanetComponent implements OnInit {
       for(let i=0; i<this.world?.length;i++){
         this.world[i].films_id=this.world[i].films_id.split("")
         this.world[i].films=this.world[i].films.split(".")
+      } 
+      for(let i=0; i<this.world?.length;i++){
+        this.world[i].people_id=this.world[i].people_id.split(",")
+        this.world[i].people=this.world[i].people.split(",")
       }  
     });
   }
@@ -32,4 +36,9 @@ export class PlanetComponent implements OnInit {
       alert('TITLE: '+dados.title+'\n'+'EPISODE ID: '+dados.episode_id+"\n"+'OPENING CRAWl: '+dados.opening_crawl);
     });
    }
+   show_people(id:string){
+    this.service.people_show(id).subscribe(dados =>{
+      alert('NAME: '+dados.name+'\n'+'BIRTH YEAR: '+dados.birth_year+'\n'+'GENDER:'+dados.gender+'\n'+'FILMS: '+dados.films);
+    });
+  }
 }
