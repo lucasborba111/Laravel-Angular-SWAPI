@@ -1,16 +1,17 @@
 <input  #myInput (keydown.enter)="world_filter(myInput.value)" placeholder="Pesquisar">
 
-<div style="display: flex; flex-direction: row;flex-wrap: wrap;justify-content: space-around;">
+<div ng-app="" style="display: flex; flex-direction: row;flex-wrap: wrap;justify-content: space-around;">
   <div class="card text-white bg-dark mb-3" style="max-width: 430px;"  *ngFor="let world of world">
       <div class="card-header">{{world.name}}</div>
       <div class="card-body text-white">
         <p class="card-text"><ul><li>Rotation period: {{world.rotation_period}}</li></ul>
         <ul><li>Orbital Period: {{world.orbital_period}}</li></ul>
         <ul><li>Diameter: {{world.diameter}}</li></ul>
-        <ul><li><div style="display: flex; flex-direction: row;">Films: <div *ngFor="let link of (world.films)"><button #valor [value]="link" (click)="show_films(valor.value)">{{link}}</button></div></div></li></ul><p>
           <ul><li>climate: {{world.climate}}</li></ul><p>
         <ul><li>Population: {{world.population}}</li></ul><p>
         <ul><li>Residents: {{world.residents}}</li></ul><p>
+        <ul>Films:<div style="display: flex; flex-direction: row;color:rgb(0, 81, 148); " *ngFor="let id of world.films_id; index as i" #valor value="id" (click)="show_films(id)"><p>{{world.films[i]}}</p> </div></ul><p>
+
       </div>
   </div>
 </div>

@@ -15,6 +15,7 @@ export class BackendService {
 
   constructor(private http:HttpClient) { }
   movie_list(){
+    
       return this.http.get<Movie[]>(this.API_MOVIE).pipe(tap(console.log));
   }
   people_list(){

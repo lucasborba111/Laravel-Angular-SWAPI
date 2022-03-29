@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\World;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Models\Movie;
 class WorldController extends Controller
 {
     public function __construct(World $world)
@@ -40,15 +41,23 @@ class WorldController extends Controller
     public function store(Request $request)
     {
         $total = $this->world->all();
-   
         if($total->pluck('items')->toArray()==null){
+            
             $response = Http::get('https://swapi.dev/api/planets/')->json('results');
             foreach($response as $item => $value){
+                $filmes='';
+                preg_match_all('!\d+!', implode($value['films']), $matches);
+                foreach($matches as $index =>$valor){
+                    $filme = Movie::find($valor)->pluck('title')->toArray();
+                    $filmes .= implode(', ',$filme);
+                    $ids = implode($matches[$index]);
+                }
             World::create(['name'=>$value['name'],
                         'rotation_period'=>$value['rotation_period'],
                         'orbital_period'=>$value['orbital_period'], 
                         'diameter'=>$value['diameter'] ,
-                        'films'=>implode(',',$value['films']), 
+                        'films'=> $filmes,
+                        'films_id'=>$ids,
                         'climate'=>$value['climate'],
                         'population'=>$value['population'],
                         'residents'=>implode(', ',$value['residents']),

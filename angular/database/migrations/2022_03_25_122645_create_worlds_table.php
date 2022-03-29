@@ -22,7 +22,8 @@ return new class extends Migration
             $table->string('climate');
             $table->string('population');
             $table->text('residents');
-            $table->string('films');
+            $table->text('films');
+            $table->text('films_id');
             $table->timestamps();
         });
     }
